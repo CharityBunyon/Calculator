@@ -6,39 +6,119 @@ namespace Calculator
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Welcome to Calculator!");
-            Console.WriteLine("To get started, enter a series of numbers separated by a comma. Here's an example: 1,2,3. No spaces, please.");
-            var userinput = Console.ReadLine();
-            string[] numbers = userinput.Split(",");
-            var output = 0;
+            Console.OutputEncoding = System.Text.Encoding.UTF8;
+            var unicodeString = "\u263A";
+            //Console.WriteLine(unicodeString);
+            //Console.ReadLine();
+            Console.WriteLine($"Welcome to Calculator! {unicodeString}");
+            Console.WriteLine(@"Enter an one of the following operators that you would like to use today: 
+                * (mulitply each number)
+                ^ (square each number)
+                + (add each number)
+                - (subtract each number)
+                / (divide each number)
+                @ (average)");
+            var chosenOperator = Console.ReadLine();
 
-            foreach (var num in numbers)
+            Console.WriteLine("To get started, enter a series of numbers separated by a comma. Here's an example: 1,2,3. No spaces, please.");
+            var userInput = Console.ReadLine();
+            string[] numbers = userInput.Split(",");
+            var output = 1;
+
+
+
+            //Multiply
+
+            if (chosenOperator.Contains('*'))
             {
-                var sum = int.Parse(num);
-                if (output == 0)
+                foreach (var num in numbers)
                 {
-                    output = sum;
+                    output *= int.Parse(num);
                 }
-                else
-                {
-                    output *= sum;
-                }
-                //Console.WriteLine(num);
+                Console.WriteLine($"The result is: {output}.");
+                Console.ReadLine();
             }
-            Console.WriteLine($"The final result is: {output}");
-            Console.ReadLine();
+
+            //Squares
+            else if (chosenOperator.Contains('^'))
+            {
+                var squareOutput = "";
+                foreach (var num in numbers)
+                {
+                    var numsToSquare = int.Parse(num);
+                    var result = numsToSquare * numsToSquare;
+                    squareOutput += ($"{result.ToString()},");
+                }
+                squareOutput = squareOutput.Remove(squareOutput.Length - 1);
+                Console.WriteLine($"The result is: {squareOutput}.");
+                Console.ReadLine();
+            }
+
+            //Addition
+            else if (chosenOperator.Contains('+'))
+            {
+                var addOutput = 0;
+                foreach (var num in numbers)
+                {
+                    addOutput += int.Parse(num);
+                }
+                Console.WriteLine($"The result is: {addOutput}.");
+                Console.ReadLine();
+            }
+
+            //Subtraction
+            else if (chosenOperator.Contains('-'))
+            {
+                var subOutput = 0;
+                foreach (var num in numbers)
+                {
+                    if (subOutput == 0)
+                    {
+                        subOutput = int.Parse(num);
+                    }
+                    else
+                    {
+                        subOutput -= int.Parse(num);
+                    }
+                    Console.WriteLine($"The result is: {subOutput}.");
+                    Console.ReadLine();
+                }
+            }
+
+            // Division
+            else if (chosenOperator.Contains('/'))
+            {
+
+                foreach (var num in numbers)
+                {
+                    // var divOutput = 0;
+                    if (output == 0)
+                    {
+                        Console.WriteLine("Sorry, you can't divide my zero.");
+                    }
+                    else
+                    {
+                        output /= int.Parse($"{num}");
+                    }
+
+                    Console.WriteLine($"The result is: {output}.");
+                    Console.ReadLine();
+                } //Couldn't figure out why divide isn't working.
+            }
+
+            else if (chosenOperator.Contains('@'))
+            {
+                var sum = 0;
+                foreach (var num in numbers)
+                {
+                    sum += int.Parse(num);
+                }
+                var avgOutput = Convert.ToDecimal(sum) / Convert.ToDecimal(numbers.Length);
+                Console.WriteLine($"The result is: {avgOutput}.");
+                Console.ReadLine();
+            }
         }
     }
 }
 
-//1. Printed instructions out for the user
-//2. Created a variable called userInput that is going to store the input of the user when Console.ReadLine is called.
-//3. I used the string split method in which I intend to split the user's input by the commas they use with should give me the numbers and I'll store them in an array called numbers
-//4. Created a variable called output to be set to 0.
-//5. I looped over each number(string) in my numbers array. 
-//6. I converted the numbers in the array by using the int.Parse method, in which I passed each number.
-//7. I created a conditional that checks to see if the output is equal to 0 then the sum is 0. Else if the output is not zero, which it shouldn't be.
-//8. Else if the output is going to multiple the numbers that are stored in our sum variable.
-//9. I wrote out the printed the numbers to make sure the user input was correct.
-//10. Asked the app to print the output and called Console.Readline();
 
