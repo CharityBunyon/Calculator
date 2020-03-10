@@ -88,23 +88,23 @@ namespace Calculator
             // Division
             else if (chosenOperator.Contains('/'))
             {
-
-                foreach (var num in numbers)
+                var result = 0m;
+                for (int i = 0; i < numbers.Length; i++)
                 {
                     // var divOutput = 0;
-                    if (output == 0)
+                    if (i == 0)
                     {
-                        Console.WriteLine("Sorry, you can't divide my zero.");
+                        result = Convert.ToDecimal(numbers[i]);
                     }
                     else
                     {
-                        output /= int.Parse($"{num}");
+                        result /= Convert.ToDecimal(numbers[i]);
                     }
-
-                    Console.WriteLine($"The result is: {output}.");
-                    Console.ReadLine();
                 } //Couldn't figure out why divide isn't working.
+                Console.WriteLine($"The result is: {result}.");
+                Console.ReadLine();
             }
+
 
             else if (chosenOperator.Contains('@'))
             {
